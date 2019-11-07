@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_works" default="compile.module.works">
+  <dirname property="module.works.basedir" file="${ant.file.module_works}"/>
+  
+  <property name="module.jdk.home.works" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.works" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.works" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.works" value="-encoding UTF-8 -source 12 -target 12 ${compiler.args}"/>
+  
+  <property name="works.output.dir" value="undefined"/>
+  <property name="works.testoutput.dir" value="undefined"/>
+  
+  <path id="works.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="works.module.production.classpath">
+    <path refid="${module.jdk.classpath.works}"/>
+  </path>
+  
+  <path id="works.runtime.production.module.classpath"/>
+  
+  <path id="works.module.classpath">
+    <path refid="${module.jdk.classpath.works}"/>
+  </path>
+  
+  <path id="works.runtime.module.classpath"/>
+  
+  
+  <patternset id="excluded.from.module.works">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.works">
+    <patternset refid="excluded.from.module.works"/>
+  </patternset>
+  
+  
+  <target name="compile.module.works" depends="compile.module.works.production,compile.module.works.tests" description="Compile module works"/>
+  
+  <target name="compile.module.works.production" depends="register.custom.compilers" description="Compile module works; production classes"/>
+  
+  <target name="compile.module.works.tests" depends="register.custom.compilers,compile.module.works.production" description="compile module works; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.works" description="cleanup module">
+    <delete dir="${works.output.dir}"/>
+    <delete dir="${works.testoutput.dir}"/>
+  </target>
+</project>
